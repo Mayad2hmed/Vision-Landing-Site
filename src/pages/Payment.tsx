@@ -1,11 +1,7 @@
 import { motion } from "motion/react";
 import { useState } from "react";
-import { loadStripe } from "@stripe/stripe-js";
 import Swal from "sweetalert2";
 import { FaCcVisa } from "react-icons/fa";
-const stripePromise = loadStripe(
-  import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
-);
 
 function Payment() {
   const [paymentMethod, setPaymentMethod] = useState("visa");
@@ -42,21 +38,9 @@ function Payment() {
         throw new Error("Failed to create checkout session");
       }
 
-      const { id } = await response.json();
+      const { url } = await response.json();
 
-      const stripe = await stripePromise;
-
-      if (!stripe) {
-        throw new Error("Stripe failed to load");
-      }
-
-      const { error } = await stripe.redirectToCheckout({
-        sessionId: id,
-      });
-
-      if (error) {
-        throw error;
-      }
+      window.location.href = url;
     } catch (error: any) {
       Swal.fire({
         icon: "error",
@@ -92,20 +76,18 @@ function Payment() {
             Payment Method
           </label>
 
-          <div className="grid grid-cols-3 gap-4 mt-4">
-
-           <button
-  onClick={() => setPaymentMethod("visa")}
-  className={`rounded-xl py-3 border transition flex items-center justify-center gap-3 ${
-    paymentMethod === "visa"
-      ? "border-cyan-400 bg-cyan-500/20"
-      : "border-white/10"
-  }`}
->
-<FaCcVisa size={42} color="#2563eb" />
-<span className="text-lg font-semibold">Visa</span>
-</button>
-
+          <div className="grid grid-cols-2 gap-4 mt-4">
+            <button
+              onClick={() => setPaymentMethod("visa")}
+              className={`rounded-xl py-3 border transition flex items-center justify-center gap-3 ${
+                paymentMethod === "visa"
+                  ? "border-cyan-400 bg-cyan-500/20"
+                  : "border-white/10"
+              }`}
+            >
+              <FaCcVisa size={42} color="#2563eb" />
+              <span className="text-lg font-semibold">Visa</span>
+            </button>
 
             <button
               onClick={() => setPaymentMethod("cash")}
@@ -117,7 +99,6 @@ function Payment() {
             >
               Cash
             </button>
-
           </div>
         </div>
 
@@ -149,7 +130,6 @@ function Payment() {
         >
           {loading ? "Redirecting..." : "Confirm Payment"}
         </button>
-
       </motion.div>
     </section>
   );
