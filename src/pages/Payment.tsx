@@ -24,15 +24,12 @@ function Payment() {
     try {
       setLoading(true);
 
-      const response = await fetch(
-        "http://localhost:5000/create-checkout-session",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+   const response = await fetch("/api/create-checkout-session", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
       if (!response.ok) {
         throw new Error("Failed to create checkout session");

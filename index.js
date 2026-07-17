@@ -11,6 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const PORT = process.env.PORT || 5000;
 
 app.post("/create-checkout-session", async (req, res) => {
   try {
@@ -32,8 +33,8 @@ app.post("/create-checkout-session", async (req, res) => {
 
       mode: "payment",
 
-      success_url: "http://localhost:5173/payment-success",
-      cancel_url: "http://localhost:5173/payment-cancel",
+      success_url: "https://vision-landing-site.vercel.app/payment-success",
+cancel_url: "https://vision-landing-site.vercel.app/payment-cancel",
     });
 
     res.json({
@@ -48,6 +49,7 @@ app.post("/create-checkout-session", async (req, res) => {
   }
 });
 
-app.listen(5000, () => {
-  console.log("Server running on http://localhost:5000");
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
