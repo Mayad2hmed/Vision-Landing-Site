@@ -120,12 +120,12 @@ function Navbar() {
         </div>
 
         
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-white text-3xl"
-        >
-          {isOpen ? <IoClose /> : <HiOutlineMenuAlt3 />}
-        </button>
+<button
+  onClick={() => setIsOpen(!isOpen)}
+  className="md:hidden text-white"
+>
+  {isOpen ? <IoClose size={32} /> : <HiOutlineMenuAlt3 size={32} />}
+</button>
 
       </div>
 
@@ -133,19 +133,19 @@ function Navbar() {
      {isOpen && (
   <div className="fixed top-[65px] sm:top-[73px] left-0 right-0 z-[999] md:hidden bg-black/95 border-t border-white/10 px-6 py-6 flex flex-col gap-5">
 
-    <a href="/#home" onClick={() => setIsOpen(false)}>
+    <a href="/#home"  className="text-white hover:text-cyan-400" onClick={() => setIsOpen(false)}>
       Home
     </a>
 
-    <a href="/#features" onClick={() => setIsOpen(false)}>
+    <a href="/#features" className="text-white hover:text-cyan-400" onClick={() => setIsOpen(false)}>
       Features
     </a>
 
-    <a href="/#pricing" onClick={() => setIsOpen(false)}>
+    <a href="/#pricing" className="text-white hover:text-cyan-400" onClick={() => setIsOpen(false)}>
       Pricing
     </a>
 
-    <Link to="/contact" onClick={() => setIsOpen(false)}>
+    <Link to="/contact" className="text-white hover:text-cyan-400" onClick={() => setIsOpen(false)}>
   Contact
 </Link>
 
